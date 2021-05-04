@@ -10,14 +10,16 @@
                 </tr>
                 <tr>";
                     for($array_counter; $array_counter < 6; $array_counter++){
-                        echo "<td>",$credit_card_numbers[$array_counter], "</td>";          // print the card number column
+                        echo "<td>",$credit_card_numbers[$array_counter], "</td>";                                                      // print the card number column
                         
                         //checks if card number is correct
-                        if(strlen($credit_card_numbers) >= 16){                             // checks if there is enough characters in the string which is 16
-                            
-                        }else $validity = "Invalid"
+                        if(strlen($credit_card_numbers[$array_counter]) >= 16){                                                        // checks if there is enough characters in the string which is 16
+                            if(is_numeric($credit_card_numbers[$array_counter]) && strlen($credit_card_numbers[$array_counter]) == 16) // if all numbers and length is exactly 16, valid
+                                $validity = "Valid";
+                            else $validity = "Invalid";
+                        }else $validity = "Invalid";
 
-                        echo "</tr>";
+                        echo "<td>", $validity, "</td></tr>";
                     }
 
         echo "</table>";
