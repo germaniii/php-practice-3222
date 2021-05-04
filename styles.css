@@ -3,9 +3,14 @@ body{
 }
 
 h1{
-    color: #3f3697;
+    color: #344fa1;
 }
 
 h2{
-    color:#344fa1;
+    color:#3d84b8;
+}
+
+table, td, th{
+    border: 1px solid black;
+    border-collapse: collapse;
 }
