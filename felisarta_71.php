@@ -10,7 +10,7 @@
 <body>
     <h1>6-2 What's My Pin?</h1>
     <h2>German E Felisarta III | 16101002 | CpE 3222</h2>
-    <?php include 'pin.php'?>
+    <?php include 'isvalid.php'?>
 
 </body>
 </html>
