@@ -1,6 +1,5 @@
 <?php
-        $credit_card_numbers = array("1234-5678-9101-1213", "1234 - 5678 - 9101 - 1213", "1234567891011213", "1234  5678 9101  1213",  // these are valid inputs
-                                    "1234 5678 9101", "1234-5678 -9101- 1221", "1234-5122-512", "123 - 412 -4212", "123  12323 123");   // these are invalid inputs
+        $md5_arr = array("f4552671f8909587cf485ea990207f3b", "647bba344396e7c8170902bcf2e15551", "2afe4567e1bf64d32a5527244d104cea");
         $array_counter = 0;
         $validity = "";
         echo "<table>
@@ -27,7 +26,7 @@
                                             $validity = "Valid";
                                         else $validity = "Invalid";
                                     }
-                                }else if(sizeof($dash) == 4){                                                                           // if string has dash only
+                                }else if(sizeof($dash) == 4){                                                                           // if string has dash
                                     for($i = 0; $i < 4; $i++){
                                         if (strlen($dash[$i]) == 4 && is_numeric($dash[$i])){
                                             $validity = "Valid";
