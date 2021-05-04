@@ -10,7 +10,12 @@
 <body>
     <h1>6-2 What's my Card Number Again?</h1>
     <h2>German E Felisarta III | 16101002 | CpE 3222</h2>
-    <?php include 'isvalid.php'?>
+
+    <form action="card_checker.php" method="post">
+        <label for="cc_num">Input Credit Card Number: </label>
+        <input type="text" value="input here"name="cc_num" id="cc_num"><br><br>
+        <input type="submit" value="Submit">
+    </form>
 
 </body>
 </html>
