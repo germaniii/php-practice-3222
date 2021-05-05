@@ -1,10 +1,10 @@
 <!DOCTYPE php>
 <html>
 <head>
-    <title> 7-2 Multiplication Table</title>
+    <title> 7-3 Address Book</title>
     <meta name = "keywords" content = "German, Felisarta, PHP, Practice"> 
     <meta name = "description" content = "This webpage is a practice page for PHP functions">
-    <link rel="stylesheet" type="text/css" href="styles.css">   
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <?php
