@@ -125,7 +125,7 @@
             }            
             ?>
         </select>
-        <input type="submit" name="delete_button" value="Delete">
+        <input type="submit" name="delete_button" value="Confirm and Delete Entry">
     </form>
     <?php
         if(isset($_POST['delete_button'])){
@@ -158,9 +158,6 @@
             $_SESSION['contact_arr'] = $temp_contact_array;
             $_SESSION['brgy_arr'] = $temp_brgy_array;
             $_SESSION['city_arr'] = $temp_city_array;
-
-
-
         }
     ?>
     <hr>
@@ -175,29 +172,61 @@
                 echo "<option value='$i'> [" . $i+1 . "] " . $temp_lName_array[$i] . ", " . $temp_fName_array[$i] . " </option>";
             }            
             ?>
-        </select>
+        </select><br><br>
+        <label for="fName_edit">First Name:</label>
+        <input type="text" placeholder="Juan" name="fName_edit" id="fName_edit" required><br><br>
+        <label for="lName_edit">Last Name:</label>
+        <input type="text" placeholder="Cruz"name="lName_edit" id="lName_edit" required><br><br>
+        <label for="contact_edit">Contact No.: +63</label>
+        <input type="tel" placeholder="9xxxxxxxxx"name="contact_edit" id="contact_edit" pattern="9[0-9]{2}[0-9]{3}[0-9]{4}" required><br><br>
+        <label for="brgy_edit">Baranggay:</label>
+        <input type="text" placeholder="Guadalupe"name="brgy_edit" id="brgy_edit" required><br><br>
+        <label for="city_edit">City:</label>
+        <input type="text" placeholder="Cebu"name="city_edit" id="city_edit" required><br><br>
+        <input type="submit" name="edit_button" value="Confirm and Edit Entry">
     </form>
-    <form method="POST">
-        <label for="fName">First Name:</label>
-        <input type="text" placeholder="Juan" name="fName" id="fName" required><br><br>
-        <label for="lName">Last Name:</label>
-        <input type="text" placeholder="Cruz"name="lName" id="lName" required><br><br>
-        <label for="contact">Contact No.: +63</label>
-        <input type="tel" placeholder="9xxxxxxxxx"name="contact" id="contact" pattern="9[0-9]{2}[0-9]{3}[0-9]{4}" required><br><br>
-        <label for="brgy">Baranggay:</label>
-        <input type="text" placeholder="Guadalupe"name="brgy" id="brgy" required><br><br>
-        <label for="n">City:</label>
-        <input type="text" placeholder="Cebu"name="city" id="city" required><br><br>
-        <input type="submit" name="edit_button" value="Submit">
-    </form>
+    <?php
+        
+        if(isset($_POST['edit_button'])) {
+
+            $temp_fName_array = $_SESSION['fName_arr'];
+            $temp_lName_array = $_SESSION['lName_arr'];
+            $temp_contact_array = $_SESSION['contact_arr'];
+            $temp_brgy_array = $_SESSION['brgy_arr'];
+            $temp_city_array = $_SESSION['city_arr'];
+            $selected = $_POST['edit_set'];
+
+            echo "Replaced "; 
+            echo $temp_lName_array[$selected] . ", " . $temp_fName_array[$selected] . " | ";
+            echo "0" . $temp_contact_array[$selected] . " | " . $temp_brgy_array[$selected] . ", " . $temp_city_array[$selected];
+            echo "<br> with ";
+
+            $temp_fName_array[$selected] = strtolower($_POST['fName_edit']);
+            $temp_lName_array[$selected] = strtolower($_POST['lName_edit']);
+            $temp_contact_array[$selected] = strtolower($_POST['contact_edit']);
+            $temp_brgy_array[$selected] = strtolower($_POST['brgy_edit']);
+            $temp_city_array[$selected] = strtolower($_POST['city_edit']);
+
+            // Reassign array
+            $_SESSION['fName_arr'] = $temp_fName_array;
+            $_SESSION['lName_arr'] = $temp_lName_array;
+            $_SESSION['contact_arr'] = $temp_contact_array;
+            $_SESSION['brgy_arr'] = $temp_brgy_array;
+            $_SESSION['city_arr'] = $temp_city_array;
+
+            echo $temp_lName_array[$selected] . ", " . $temp_fName_array[$selected] . " | ";
+            echo "0" . $temp_contact_array[$selected] . " | " . $temp_brgy_array[$selected] . ", " . $temp_city_array[$selected];
+        }
+
+    ?>
     
-
-
-    <br>
+    <br><br>
     <form method="POST">
         <input type="submit" name="clear_arr" value="Reset Address Book">
     </form>
-
+    <br><br>
+    <h2> Address Book List </h2>
+    <p>For Display and Debugging Purposes</p>
     <?php
             echo "<pre>";
             print_r($_SESSION);
