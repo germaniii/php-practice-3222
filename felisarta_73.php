@@ -72,20 +72,20 @@
 
         if(isset($_POST['fName_button'])){                      // Search First Name
             $search_index = array_keys($_SESSION['fName_arr'], strtolower($_POST['fName_search']));
-            echo "<h3>Search Results for " . $_POST['fName_search']. ":</h3><br>";
+            echo "<h3>Search Results for " . $_POST['fName_search']. ":</h3>";
 
         }elseif(isset($_POST['lName_button'])){                 // Search Last Name
             $search_index = array_keys($_SESSION['lName_arr'], strtolower($_POST['lName_search']));
-            echo "<h3>Search Results for " . $_POST['lName_search']. ":</h3><br>";
+            echo "<h3>Search Results for " . $_POST['lName_search']. ":</h3>";
             
 
         }elseif(isset($_POST['brgy_button'])){                  // Search Baranggay
             $search_index = array_keys($_SESSION['brgy_arr'], strtolower($_POST['brgy_search']));
-            echo "<h3>Search Results for " . $_POST['brgy_search']. ":</h3><br>";
+            echo "<h3>Search Results for " . $_POST['brgy_search']. ":</h3>";
 
         }elseif(isset($_POST['city_button'])){                  // Search City
             $search_index = array_keys($_SESSION['city_arr'], strtolower($_POST['city_search']));
-            echo "<h3>Search Results for " . $_POST['city_search']. ":</h3><br>";
+            echo "<h3>Search Results for " . $_POST['city_search']. ":</h3>";
 
         }
 
