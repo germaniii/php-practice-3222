@@ -19,22 +19,17 @@
             $_SESSION['contact_arr'] = array();     // Contact Num Array
             $_SESSION['brgy_arr'] = array();        // Brgy Array
             $_SESSION['city_arr'] = array();        // City Array
-            $fName_arr = array();
-            $lName_arr = array();
-            $contact_arr = array();
-            $brgy_arr = array();
-            $city_arr    = array();
 
         }
 
 
         if(isset($_POST['submit_form'])){
             //Appending to Session (main) array
-            array_push($_SESSION['fName_arr'], $_POST['fName']);
-            array_push($_SESSION['lName_arr'], $_POST['lName']);
-            array_push($_SESSION['contact_arr'], $_POST['contact']);
-            array_push($_SESSION['brgy_arr'], $_POST['brgy']);
-            array_push($_SESSION['city_arr'], $_POST['city']);
+            array_push($_SESSION['fName_arr'], strtolower($_POST['fName']));
+            array_push($_SESSION['lName_arr'], strtolower($_POST['lName']));
+            array_push($_SESSION['contact_arr'], strtolower($_POST['contact']));
+            array_push($_SESSION['brgy_arr'], strtolower($_POST['brgy']));
+            array_push($_SESSION['city_arr'], strtolower($_POST['city']));
         } 
     ?>
     <h1>7-3 Address Book</h1>
@@ -67,23 +62,57 @@
         <input type="submit" name="city_button" value="Search City"><br><br>
     </form>
     <?php
-        $search_arr = array();
-        if(isset($_POST['fName_button'])){                      // Search First Name
-            foreach ($_SESSION['fName_arr'] as $name){
-                if($name ==  $_POST['fName_search']){
+        // this php is for search feature
+        $search_index = array();
+        $temp_fName_array = $_SESSION['fName_arr'];
+        $temp_lName_array = $_SESSION['lName_arr'];
+        $temp_contact_array = $_SESSION['contact_arr'];
+        $temp_brgy_array = $_SESSION['brgy_arr'];
+        $temp_city_array = $_SESSION['city_arr'];
 
-                }
-            }
+        if(isset($_POST['fName_button'])){                      // Search First Name
+            $search_index = array_keys($_SESSION['fName_arr'], strtolower($_POST['fName_search']));
+            echo "<h3>Search Results for " . $_POST['fName_search']. ":</h3><br>";
 
         }elseif(isset($_POST['lName_button'])){                 // Search Last Name
+            $search_index = array_keys($_SESSION['lName_arr'], strtolower($_POST['lName_search']));
+            echo "<h3>Search Results for " . $_POST['lName_search']. ":</h3><br>";
+            
 
         }elseif(isset($_POST['brgy_button'])){                  // Search Baranggay
+            $search_index = array_keys($_SESSION['brgy_arr'], strtolower($_POST['brgy_search']));
+            echo "<h3>Search Results for " . $_POST['brgy_search']. ":</h3><br>";
 
         }elseif(isset($_POST['city_button'])){                  // Search City
+            $search_index = array_keys($_SESSION['city_arr'], strtolower($_POST['city_search']));
+            echo "<h3>Search Results for " . $_POST['city_search']. ":</h3><br>";
 
         }
+
+        $counter = 1;
+        foreach($search_index as $index){
+            echo "[" . $counter . "] "; 
+            echo $temp_lName_array[$index] . ", " . $temp_fName_array[$index] . " | ";
+            echo "0" . $temp_contact_array[$index] . " | " . $temp_brgy_array[$index] . ", " . $temp_city_array[$index];
+            echo "<br>";
+            $counter++;
+        }
+
     
     ?>
+    <hr>
+    <h2>Delete</h2>
+    <form method="POST">
+        <input type="text" placeholder="Juan" name="fName_search" id="fName_search">
+        <input type="submit" name="fName_button" value="Search First Name"><br><br>
+        <input type="text" placeholder="Cruz" name="lName_search" id="lName_search">
+        <input type="submit" name="lName_button" value="Search Last Name"><br><br>
+        <input type="text" placeholder="Guadalupe"name="brgy_search" id="brgy_search">
+        <input type="submit" name="brgy_button" value="Search Baranggay"><br><br>
+        <input type="text" placeholder="Cebu"name="city_search" id="city_search">
+        <input type="submit" name="city_button" value="Search City"><br><br>
+    </form>
+
 
     <br><br><br>
     <form method="POST">
