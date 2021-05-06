@@ -50,7 +50,7 @@
         <input type="submit" name="submit_form" value="Submit">
     </form>
     <hr>
-    <h2>Search</h2>
+    <h2>Search Entry</h2>
     <form method="POST">
         <input type="text" placeholder="Juan" name="fName_search" id="fName_search">
         <input type="submit" name="fName_button" value="Search First Name"><br><br>
@@ -72,20 +72,32 @@
 
         if(isset($_POST['fName_button'])){                      // Search First Name
             $search_index = array_keys($_SESSION['fName_arr'], strtolower($_POST['fName_search']));
-            echo "<h3>Search Results for " . $_POST['fName_search']. ":</h3>";
-
+            if(!empty($search_index))
+                echo "<h3>Search Results for " . $_POST['fName_search']. ":</h3>";
+            else
+                echo "<h3>No Results Found!</h3>";
+            
         }elseif(isset($_POST['lName_button'])){                 // Search Last Name
             $search_index = array_keys($_SESSION['lName_arr'], strtolower($_POST['lName_search']));
-            echo "<h3>Search Results for " . $_POST['lName_search']. ":</h3>";
+            if(!empty($search_index))
+                echo "<h3>Search Results for " . $_POST['lName_search']. ":</h3>";
+            else
+                echo "<h3>No Results Found!</h3>";
             
 
         }elseif(isset($_POST['brgy_button'])){                  // Search Baranggay
             $search_index = array_keys($_SESSION['brgy_arr'], strtolower($_POST['brgy_search']));
-            echo "<h3>Search Results for " . $_POST['brgy_search']. ":</h3>";
+            if(!empty($search_index))
+                echo "<h3>Search Results for " . $_POST['brgy_search']. ":</h3>";
+            else
+                echo "<h3>No Results Found!</h3>";
 
         }elseif(isset($_POST['city_button'])){                  // Search City
             $search_index = array_keys($_SESSION['city_arr'], strtolower($_POST['city_search']));
-            echo "<h3>Search Results for " . $_POST['city_search']. ":</h3>";
+            if(!empty($search_index))
+                echo "<h3>Search Results for " . $_POST['city_search']. ":</h3>";
+            else
+                echo "<h3>No Results Found!</h3>";
 
         }
 
@@ -101,20 +113,87 @@
     
     ?>
     <hr>
-    <h2>Delete</h2>
+    <h2>Delete Entry</h2>
     <form method="POST">
-        <input type="text" placeholder="Juan" name="fName_search" id="fName_search">
-        <input type="submit" name="fName_button" value="Search First Name"><br><br>
-        <input type="text" placeholder="Cruz" name="lName_search" id="lName_search">
-        <input type="submit" name="lName_button" value="Search Last Name"><br><br>
-        <input type="text" placeholder="Guadalupe"name="brgy_search" id="brgy_search">
-        <input type="submit" name="brgy_button" value="Search Baranggay"><br><br>
-        <input type="text" placeholder="Cebu"name="city_search" id="city_search">
-        <input type="submit" name="city_button" value="Search City"><br><br>
+        <select name="delete_set">
+            <option>Select one person to delete</option>
+            <?php
+            //print values of arrays into dropdown list
+            // Iterating through the array
+            for($i = 0; $i < count($_SESSION['fName_arr']); $i++){
+                echo "<option value='$i'> [" . $i+1 . "] " . $temp_lName_array[$i] . ", " . $temp_fName_array[$i] . " </option>";
+            }            
+            ?>
+        </select>
+        <input type="submit" name="delete_button" value="Delete">
     </form>
+    <?php
+        if(isset($_POST['delete_button'])){
+            // Set temp array for this instance
+            $temp_fName_array = $_SESSION['fName_arr'];
+            $temp_lName_array = $_SESSION['lName_arr'];
+            $temp_contact_array = $_SESSION['contact_arr'];
+            $temp_brgy_array = $_SESSION['brgy_arr'];
+            $temp_city_array = $_SESSION['city_arr'];
+            $selected = $_POST['delete_set'];
+
+            
+            echo "Deleted: " . $temp_lName_array[$selected] . ", " . $temp_fName_array[$selected];
+            unset($temp_fName_array[$selected]); 
+            unset($temp_lName_array[$selected]); 
+            unset($temp_contact_array[$selected]); 
+            unset($temp_brgy_array[$selected]); 
+            unset($temp_city_array[$selected]); 
+
+            //arrange array
+            $temp_fName_array = array_values($temp_fName_array);
+            $temp_lName_array = array_values($temp_lName_array);
+            $temp_contact_array = array_values($temp_contact_array);
+            $temp_brgy_array = array_values($temp_brgy_array);
+            $temp_city_array = array_values($temp_city_array);
+
+            // Reassign array
+            $_SESSION['fName_arr'] = $temp_fName_array;
+            $_SESSION['lName_arr'] = $temp_lName_array;
+            $_SESSION['contact_arr'] = $temp_contact_array;
+            $_SESSION['brgy_arr'] = $temp_brgy_array;
+            $_SESSION['city_arr'] = $temp_city_array;
 
 
-    <br><br><br>
+
+        }
+    ?>
+    <hr>
+    <h2>Edit Entry</h2>
+    <form method="POST">
+        <select name="edit_set">
+            <option>Select one person to edit</option>
+            <?php
+            //print values of arrays into dropdown list
+            // Iterating through the array
+            for($i = 0; $i < count($_SESSION['fName_arr']); $i++){
+                echo "<option value='$i'> [" . $i+1 . "] " . $temp_lName_array[$i] . ", " . $temp_fName_array[$i] . " </option>";
+            }            
+            ?>
+        </select>
+    </form>
+    <form method="POST">
+        <label for="fName">First Name:</label>
+        <input type="text" placeholder="Juan" name="fName" id="fName" required><br><br>
+        <label for="lName">Last Name:</label>
+        <input type="text" placeholder="Cruz"name="lName" id="lName" required><br><br>
+        <label for="contact">Contact No.: +63</label>
+        <input type="tel" placeholder="9xxxxxxxxx"name="contact" id="contact" pattern="9[0-9]{2}[0-9]{3}[0-9]{4}" required><br><br>
+        <label for="brgy">Baranggay:</label>
+        <input type="text" placeholder="Guadalupe"name="brgy" id="brgy" required><br><br>
+        <label for="n">City:</label>
+        <input type="text" placeholder="Cebu"name="city" id="city" required><br><br>
+        <input type="submit" name="edit_button" value="Submit">
+    </form>
+    
+
+
+    <br>
     <form method="POST">
         <input type="submit" name="clear_arr" value="Reset Address Book">
     </form>
