@@ -1,39 +1,28 @@
-<!DOCTYPE php>
-<html>
-<head>
-    <title> 7-3 Address Book</title>
-    <meta name = "keywords" content = "German, Felisarta, PHP, Practice"> 
-    <meta name = "description" content = "This webpage is a practice page for PHP functions">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
 <?php
-        $input = $_POST['n'];
-        $x = 1;
-        $y = 2;
-        $validity = "";
+    session_start();
+    $fName_arr = $_SESSION['fName_arr'];
+    $lName_arr = $_SESSION['lName_arr'];
+    $contact_arr = $_SESSION['contact_arr'];
+    $brgy_arr = $_SESSION['brgy_arr'];
+    $city_arr = $_SESSION['city_arr'];
 
-        //Error Trapping, should be numeric
-        if(is_numeric($input)){
-            //Error Trapping, input should be whole number
-            if(ctype_digit(strval($input))){
-                echo "  <h1> Multiplication Table of $input </h>
-                        <table>";
+    array_push($fName_arr, $_POST['fName']);
+    array_push($lName_arr, $_POST['lName']);
+    array_push($contact_arr, $_POST['contact']);
+    array_push($brgy_arr, $_POST['brgy']);
+    array_push($city_arr, $_POST['city']);
 
-                for($x; $x <= $input; $x++){         // main loop, prints the row
-                    echo "<tr><td>", $x, "</td>";     
+    $_SESSION['fName_arr'] = $fName_arr;
+    $_SESSION['lName_arr'] = $lName_arr;
+    $_SESSION['contact_arr'] = $contact_arr;
+    $_SESSION['brgy_arr'] = $brgy_arr;
+    $_SESSION['city_arr'] = $city_arr;
 
-                        for($y; $y <= $input; $y++){    // prints the column
-                            $mult = $x * $y;
-                            echo "<td>", $mult, "</td>";
-                        }
-                    $y=2;
-                    echo "</tr>";
-                }
-
-                echo "</table>";
-            }else echo "<h2>Input Should be a Whole Number!</h2>";
-        }else echo "<h2>Input Should be a number! </h2>";
+    if(isset($_POST['Submit'])){
+        echo "<pre>";
+        print_r($_POST);
+        print_r($_SESSION);
+        echo "</pre>";
+    } 
 ?>
-</body>
-</html>
+<
